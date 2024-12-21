@@ -1,13 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RoxmvtYkEfY=",
+  "dgSpecHash": "k527OH1Wv3E=",
   "success": true,
   "projectFilePath": "C:\\Users\\linda\\Downloads\\Projects\\PetsAppProject\\Starter.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\linda\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.11\\microsoft.netcore.app.ref.8.0.11.nupkg.sha512",
-    "C:\\Users\\linda\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.11\\microsoft.windowsdesktop.app.ref.8.0.11.nupkg.sha512",
-    "C:\\Users\\linda\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.11\\microsoft.aspnetcore.app.ref.8.0.11.nupkg.sha512",
-    "C:\\Users\\linda\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.11\\microsoft.netcore.app.host.win-x64.8.0.11.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }

@@ -21,7 +21,20 @@ string searchValue = "";
 // array used to store runtime data, there is no persisted data
 string[,] ourAnimals = new string[maxPets, 6];
 
-// TODO: Convert the if-elseif-else construct to a switch statement
+string GetValidatedInput(string prompt, Func<string, bool> validator)
+{
+    bool isValid;
+    do
+    {
+        Console.WriteLine(prompt);  // Prompt the user for input
+        readResult = Console.ReadLine() ?? string.Empty;  // Read user input, default to an empty string if null
+        isValid = validator(readResult);  // Use the validator to check the input
+        if (!isValid) 
+            Console.WriteLine("Invalid input. Please try again.");  // Error feedback
+    } while (!isValid);  // Repeat until the input is valid
+    if (readResult.GetType().Equals(typeof(string))) return readResult.ToLower();
+    else return readResult;  // Return the validated input
+}
 
 // create some initial ourAnimals array entries
 for (int i = 0; i < maxPets; i++)
@@ -99,13 +112,9 @@ do
     Console.WriteLine(" 7. Display all cats with a specified characteristic");
     Console.WriteLine(" 8. Display all dogs with a specified characteristic");
     Console.WriteLine();
-    Console.WriteLine("Enter your selection number (or type Exit to exit the program)");
 
-    readResult = Console.ReadLine();
-    if (readResult != null)
-    {
-        menuSelection = readResult.ToLower();
-    }
+    menuSelection = GetValidatedInput("Enter your selection number (or type Exit to exit the program)", input => !string.IsNullOrWhiteSpace(input) && ((int.TryParse(input, out int number) && number >= 1 && number <= 8) || input.ToLower() == "exit"));
+   
     
     Console.WriteLine($"You selected menu option {menuSelection}.");
     Console.WriteLine("Press the Enter key to continue");
@@ -142,22 +151,24 @@ do
             readResult = Console.ReadLine();
             while(petCount<maxPets && newPet=="y")
             {
-                do 
+                newPet = GetValidatedInput("Do you want to enter info for another pet (y/n)", input => !string.IsNullOrWhiteSpace(input) && (input.ToLower() =="y" || input.ToLower() =="n"));
+                /*do 
                 {   Console.WriteLine("Do you want to enter info for another pet (y/n)");
                     readResult = Console.ReadLine();
-                    if (readResult!=null) newPet = readResult;
+                    if (readResult!=null) newPet = readResult.ToLower();
                     {
-                        if (newPet.ToLower() == "y" || newPet.ToLower() == "n")
+                        if (newPet == "y" || newPet == "n")
                         {
                             validEntry = true;
                         }else validEntry = false;
                     }
                 }
-                while(validEntry == false);
+                while(validEntry == false);*/
                 
-                if (newPet.ToLower()=="y") 
+                if (newPet=="y") 
                 {
-                    do
+                    animalSpecies = GetValidatedInput("Enter 'dog' or 'cat' to begin a new entry", input => !string.IsNullOrWhiteSpace(input) && (input.ToLower() =="cat" || input.ToLower() =="dog"));
+                    /*do
                     {
                         Console.WriteLine("Enter 'dog' or 'cat' to begin a new entry");
                         readResult = Console.ReadLine();
@@ -172,11 +183,12 @@ do
                             }else Console.WriteLine("Invalid entry. Enter 'dog' or 'cat' to begin a new entry");
                         }else validEntry = false;
                     } 
-                    while(validEntry == false);
+                    while(validEntry == false);*/
                     
                     animalID = animalSpecies.Substring(0, 1) + (petCount + 1).ToString();
                     
-                    do
+                    animalAge = GetValidatedInput("Enter the pet's age or enter ? if unknown", input => !string.IsNullOrWhiteSpace(input) && (int.TryParse(input,out petAge) || input == "?"));
+                    /*do
                     {
                         Console.WriteLine("Enter the pet's age or enter ? if unknown");
                         readResult = Console.ReadLine();
@@ -194,9 +206,11 @@ do
                         
                         }
                     } 
-                    while(validEntry == false);
+                    while(validEntry == false);*/
+                    animalPhysicalDescription = GetValidatedInput("Enter a physical description of the pet (size, color, gender, weight, housebroken)", input => input != null);
 
-                    do
+                    if (animalPhysicalDescription == "") animalPhysicalDescription ="tbd";
+                    /*do
                     {
                         Console.WriteLine("Enter a physical description of the pet (size, color, gender, weight, housebroken)");
                         readResult = Console.ReadLine();
@@ -208,8 +222,12 @@ do
                                 animalPhysicalDescription = "tbd";
                             }
                         }
-                    } while (animalPhysicalDescription == "");
-                    do
+                    } while (animalPhysicalDescription == "");*/
+
+                    animalPersonalityDescription = GetValidatedInput("Enter a description of the pet's personality (likes or dislikes, tricks, energy level)", input => input != null);
+
+                    if (animalPersonalityDescription == "") animalPersonalityDescription ="tbd";
+                    /*do
                     {
                         Console.WriteLine("Enter a description of the pet's personality (likes or dislikes, tricks, energy level)");
                         readResult = Console.ReadLine();
@@ -221,7 +239,13 @@ do
                                 animalPersonalityDescription = "tbd";
                             }
                         }
-                    } while (animalPersonalityDescription == "");
+                    } while (animalPersonalityDescription == "");*/
+
+                    animalNickname = GetValidatedInput("Enter a nickname for the pet", input => input != null);
+
+                    if (animalNickname == "") animalNickname ="tbd";
+                    /*
+
                     do
                     {
                         Console.WriteLine("Enter a nickname for the pet");
@@ -234,7 +258,7 @@ do
                                 animalNickname = "tbd";
                             }
                         }
-                    } while (animalNickname == "");
+                    } while (animalNickname == "");*/
                     ourAnimals[petCount, 0] = "ID #: " + animalID;
                     ourAnimals[petCount, 1] = "Species: " + animalSpecies;
                     ourAnimals[petCount, 2] = "Age: " + animalAge;
