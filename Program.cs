@@ -36,6 +36,22 @@ string GetValidatedInput(string prompt, Func<string, bool> validator)
     else return readResult;  // Return the validated input
 }
 
+void FindMatch(string toFind, string toSearch, int positition) {
+     for (int i=0; i<maxPets; i++)
+        {
+            if (ourAnimals[i,positition].Contains(toFind) && ourAnimals[i,1].Contains(toSearch))
+            {   
+                found = true; 
+                for(int j=0; j<6; j++)
+                {
+                    Console.WriteLine(ourAnimals[i, j]);
+                }
+                Console.WriteLine("");
+            }                  
+        }
+        if (found == false) Console.WriteLine("Sorry, we couldn't find a match."); 
+}
+
 // create some initial ourAnimals array entries
 for (int i = 0; i < maxPets; i++)
 {   
@@ -137,7 +153,6 @@ do
         case "2":
             string newPet = "y";
             int petCount = 0;
-            bool validEntry = false;
             int petAge;
             for (int i=0; i < maxPets; i++)
             {
@@ -272,14 +287,14 @@ do
             }
             break;
         case "3":
-            validEntry = false;
             for(int i=0; i<maxPets; i++)
             {
                 if (ourAnimals[i,0] != "ID #: ")
                 {   
                     if (ourAnimals[i,2] == "Age: ?")
                     {
-                        do{
+                        animalAge = GetValidatedInput($"Enter an age for {ourAnimals[i,0]}", input => !string.IsNullOrWhiteSpace(input) && int.TryParse(input,out petAge));
+                        /*do{
                             Console.WriteLine($"Enter an age for {ourAnimals[i,0]}");
                             readResult = Console.ReadLine();
                             if (readResult != null)
@@ -287,12 +302,13 @@ do
                                 animalAge = readResult;
                                 validEntry = int.TryParse(animalAge, out petAge);
                             }
-                        }while(validEntry == false);
+                        }while(validEntry == false);*/
                     }
                     
                     if (ourAnimals[i,4] == "Physical description: tbd" || ourAnimals[i,4] == "Physical description: ")
                     { 
-                        do{
+                        animalPhysicalDescription = GetValidatedInput($"Enter a physical description for {ourAnimals[i,0]} (size, color, breed, gender, weight, housebroken)", input => !string.IsNullOrEmpty(input));
+                        /*do{
                             Console.WriteLine($"Enter a physical description for {ourAnimals[i,0]} (size, color, breed, gender, weight, housebroken)");
                     
                             readResult = Console.ReadLine();
@@ -302,7 +318,7 @@ do
                                 validEntry = true;
                             }else validEntry = false;
                         }        
-                        while(validEntry == false);
+                        while(validEntry == false);*/
                     }
                 }
                 ourAnimals[i, 2] = "Age: " + animalAge;
@@ -318,7 +334,8 @@ do
                 {   
                     if (ourAnimals[i,3] == "Nickname: tbd" || ourAnimals[i,3] == "Nickname: ")
                     {
-                        do{
+                        animalNickname = GetValidatedInput($"Enter a Nickname for {ourAnimals[i,0]}", input => !string.IsNullOrEmpty(input));
+                        /*do{
                             Console.WriteLine($"Enter a Nickname for {ourAnimals[i,0]}");
                     
                             readResult = Console.ReadLine();
@@ -328,12 +345,14 @@ do
                                 validEntry = true;
                             }else validEntry = false;
                         }        
-                        while(validEntry == false);
+                        while(validEntry == false);*/
                     }
                     
                     if (ourAnimals[i,5] == "Personality: tbd" || ourAnimals[i,5] == "Personality: ")
                     { 
-                        do{
+
+                        animalPersonalityDescription = GetValidatedInput($"Enter a personality description for {ourAnimals[i,0]} (likes or dislikes, tricks, energy level)", input => !string.IsNullOrEmpty(input));
+                        /*do{
                             Console.WriteLine($"Enter a personality description for {ourAnimals[i,0]} (likes or dislikes, tricks, energy level)");
                     
                             readResult = Console.ReadLine();
@@ -343,7 +362,7 @@ do
                                 validEntry = true;
                             }else validEntry = false;
                         }        
-                        while(validEntry == false);
+                        while(validEntry == false);*/
                     }
                 }
                 ourAnimals[i, 3] = "Nickname: " + animalNickname;
@@ -353,7 +372,8 @@ do
             Console.WriteLine("Press the Enter key to continue.");
             break;
         case "5":
-            do
+            animalID = GetValidatedInput($"Enter an ID # to change the pet age:", input => !string.IsNullOrEmpty(input) && input.Length==2);
+            /*do
             {
                 Console.WriteLine("Enter an ID # to change the pet age:");
                 readResult = Console.ReadLine();
@@ -367,12 +387,13 @@ do
                     validEntry = false;
                 }    
             }    
-            while(validEntry == false);    
+            while(validEntry == false);  */  
             for (int i=0; i<maxPets; i++)
             {
                 if (ourAnimals[i,0].Contains(animalID))
                 {   found = true;   
-                    do{
+                    animalAge = GetValidatedInput($"Enter new pet age:", input => !string.IsNullOrEmpty(input) && int.TryParse(input, out petAge));
+                    /*do{
                         Console.WriteLine("Enter new pet age:");
                         readResult = Console.ReadLine();
                         if (readResult != null)
@@ -380,7 +401,7 @@ do
                             animalAge = readResult;
                             validEntry = int.TryParse(animalAge, out petAge);
                         }
-                    }while(validEntry == false);
+                    }while(validEntry == false);*/
                     ourAnimals[i, 2] = "Age: " + animalAge;
                 }
                 
@@ -395,7 +416,8 @@ do
             }
             break;
         case "6":
-            do
+             animalID = GetValidatedInput($"Enter an ID # to change the pet personality description:", input => !string.IsNullOrEmpty(input) && input.Length==2);
+            /*do
             {
                 Console.WriteLine("Enter an ID # to change the pet personality description:");
                 readResult = Console.ReadLine();
@@ -409,12 +431,13 @@ do
                     validEntry = false;
                 }    
             }    
-            while(validEntry == false);
+            while(validEntry == false);*/
             for (int i=0; i<maxPets; i++)
             {
                 if (ourAnimals[i,0].Contains(animalID))
                 {   found = true;   
-                    do{
+                    animalPersonalityDescription = GetValidatedInput($"Update personality description for {ourAnimals[i,0]} (likes or dislikes, tricks, energy level)", input => !string.IsNullOrEmpty(input));
+                    /*do{
                         Console.WriteLine($"Update personality description for {ourAnimals[i,0]} (likes or dislikes, tricks, energy level)");
                     
                         readResult = Console.ReadLine();
@@ -424,7 +447,8 @@ do
                             validEntry = true;
                         }else validEntry = false;
                     }        
-                    while(validEntry == false);
+                    while(validEntry == false);*/
+                    
                     ourAnimals[i, 5] = "Personality: " + animalPersonalityDescription;
                 }else found = false;
             }    
@@ -438,318 +462,327 @@ do
             }
             break;
         case "7":
-            Console.WriteLine("Enter the specified characteristic you want to look for to find cat matches: ID, Age, Personality, Description, Nickname");
+            /*Console.WriteLine("Enter the specified characteristic you want to look for to find cat matches: ID, Age, Personality, Description, Nickname");
             do
             {
                 readResult = Console.ReadLine();
 
-                if (readResult != null && readResult!="")
+                if (readResult != null && readResult!=""){*/ 
+            searchValue = GetValidatedInput("Enter the specified characteristic you want to look for to find cat matches: ID, Age, Personality, Description, Nickname", input => !string.IsNullOrEmpty(input));
+                
+                switch (searchValue)
                 {
-                    searchValue = readResult;
-                    switch (searchValue.ToLower())
-                    {
-                        case "id":
-                            do
+                    case "id":
+                        animalID = GetValidatedInput($"Enter an ID # to view cat information:", input => !string.IsNullOrEmpty(input) && input.Length==2);
+                        /*do
+                        {
+                            Console.WriteLine("Enter an ID # to view cat information:");
+                            readResult = Console.ReadLine();
+                            if (readResult != null && readResult != "" && readResult.Length==2)
                             {
-                                Console.WriteLine("Enter an ID # to view cat information:");
-                                readResult = Console.ReadLine();
-                                if (readResult != null && readResult != "" && readResult.Length==2)
-                                {
-                                    animalID = readResult;
-                                    validEntry = true;
-                                }else 
-                                {
-                                    Console.WriteLine("ID not valid. Try Again.");
-                                    validEntry = false;
-                                }    
+                                animalID = readResult;
+                                validEntry = true;
+                            }else 
+                            {
+                                Console.WriteLine("ID not valid. Try Again.");
+                                validEntry = false;
                             }    
-                            while(validEntry == false);
+                        }    
+                        while(validEntry == false);*/
+                        FindMatch(animalID, "cat", 0);
 
-                            for (int i=0; i<maxPets; i++)
-                            {
-                                if (ourAnimals[i,0].Contains(animalID) && ourAnimals[i,1].Contains("cat"))
-                                {   
-                                    found = true; 
-                                    for(int j=0; j<6; j++)
-                                    {
-                                        Console.WriteLine(ourAnimals[i, j]);
-                                    }
-                                    Console.WriteLine("");
-                                }                  
-                            }
-                            if (found == false) Console.WriteLine("ID not found."); 
-
-                            break;
-                        case "age":
-                            do{
-                                Console.WriteLine("Enter a valid age to view matching cats information:");
-                                readResult = Console.ReadLine();
-                                if (readResult != null)
+                        /*for (int i=0; i<maxPets; i++)
+                        {
+                            if (ourAnimals[i,0].Contains(animalID) && ourAnimals[i,1].Contains("cat"))
+                            {   
+                                found = true; 
+                                for(int j=0; j<6; j++)
                                 {
-                                    animalAge = readResult;
-                                    validEntry = int.TryParse(animalAge, out petAge);
-                                }else validEntry = false;
-                            }while(validEntry == false);
+                                    Console.WriteLine(ourAnimals[i, j]);
+                                }
+                                Console.WriteLine("");
+                            }                  
+                        }
+                        if (found == false) Console.WriteLine("ID not found.");*/ 
 
-                            for (int i=0; i<maxPets; i++)
+                        break;
+                    case "age":
+                        animalAge = GetValidatedInput("Enter a valid age to view matching cats information:", input => !string.IsNullOrEmpty(input) && int.TryParse(input, out petAge));
+                        /*do{
+                            Console.WriteLine("Enter a valid age to view matching cats information:");
+                            readResult = Console.ReadLine();
+                            if (readResult != null)
                             {
-                                if (ourAnimals[i,2].Contains(animalAge) && ourAnimals[i,1].Contains("cat"))
-                                {   
-                                    found = true; 
-                                    for(int j=0; j<6; j++)
-                                    {
-                                        Console.WriteLine(ourAnimals[i, j]);
-                                    }
-                                    Console.WriteLine("");
-                                }                  
-                            }
-                            if (found == false) Console.WriteLine("Age not found.");
-                            break;
-                        case "personality":
-                            do{
-                                Console.WriteLine("Enter personality description to find cat matches:");
-                                readResult = Console.ReadLine();
-                                if (readResult != null && readResult!="")
+                                animalAge = readResult;
+                                validEntry = int.TryParse(animalAge, out petAge);
+                            }else validEntry = false;
+                        }while(validEntry == false);*/
+
+                        /*for (int i=0; i<maxPets; i++)
+                        {
+                            if (ourAnimals[i,2].Contains(animalAge) && ourAnimals[i,1].Contains("cat"))
+                            {   
+                                found = true; 
+                                for(int j=0; j<6; j++)
                                 {
-                                    animalPersonalityDescription = readResult;
-                                    validEntry = true;
-                                }else validEntry = false;
-                            }        
-                            while(validEntry == false);
-
-                            for (int i=0; i<maxPets; i++)
+                                    Console.WriteLine(ourAnimals[i, j]);
+                                }
+                                Console.WriteLine("");
+                            }                  
+                        
+                        if (found == false) Console.WriteLine("Age not found.");*/
+                        FindMatch(animalAge, "cat", 2);
+                        break;
+                    case "personality":
+                        animalPersonalityDescription = GetValidatedInput("Enter personality description to find cat matches:", input => !string.IsNullOrEmpty(input));
+                        /*do{
+                            Console.WriteLine("Enter personality description to find cat matches:");
+                            readResult = Console.ReadLine();
+                            if (readResult != null && readResult!="")
                             {
-                                if (ourAnimals[i,5].Contains(animalPersonalityDescription.ToLower()) && ourAnimals[i,1].Contains("cat"))
-                                {   
-                                    found = true; 
-                                    for(int j=0; j<6; j++)
-                                    {
-                                        Console.WriteLine(ourAnimals[i, j]);
-                                    }
-                                    Console.WriteLine("");
-                                }                  
-                            }
-                            if (found == false) Console.WriteLine("Personality description not found.");
-                            break;
-                        case "description":
-                            do{
-                                Console.WriteLine("Enter physical description to find cat matches:");
-                                readResult = Console.ReadLine();
-                                if (readResult != null && readResult!="")
+                                animalPersonalityDescription = readResult;
+                                validEntry = true;
+                            }else validEntry = false;
+                        }        
+                        while(validEntry == false);*/
+
+                        FindMatch(animalPersonalityDescription, "cat", 5);
+
+                        /*for (int i=0; i<maxPets; i++)
+                        {
+                            if (ourAnimals[i,5].Contains(animalPersonalityDescription.ToLower()) && ourAnimals[i,1].Contains("cat"))
+                            {   
+                                found = true; 
+                                for(int j=0; j<6; j++)
                                 {
-                                    animalPhysicalDescription = readResult;
-                                    validEntry = true;
-                                }else validEntry = false;
-                            }        
-                            while(validEntry == false);
+                                    Console.WriteLine(ourAnimals[i, j]);
+                                }
+                                Console.WriteLine("");
+                            }                  
+                        }
+                        if (found == false) Console.WriteLine("Personality description not found.");*/
+                        break;
+                    case "description":
 
-                            for (int i=0; i<maxPets; i++)
+                        animalPhysicalDescription = GetValidatedInput("Enter physical description to find cat matches:", input => !string.IsNullOrEmpty(input));
+                        /*do{
+                            Console.WriteLine("Enter physical description to find cat matches:");
+                            readResult = Console.ReadLine();
+                            if (readResult != null && readResult!="")
                             {
-                                if (ourAnimals[i,4].Contains(animalPhysicalDescription.ToLower()) && ourAnimals[i,1].Contains("cat"))
-                                {   
-                                    found = true; 
-                                    for(int j=0; j<6; j++)
-                                    {
-                                        Console.WriteLine(ourAnimals[i, j]);
-                                    }
-                                    Console.WriteLine("");
-                                }                  
-                            }
-                            if (found == false) Console.WriteLine("Physical description not found.");
-                            break;
-                        case "nickname":
-                            do{
-                                Console.WriteLine("Enter Nickname to find cat matches");
-                                readResult = Console.ReadLine();
-                                if (readResult != null && readResult!="")
+                                animalPhysicalDescription = readResult;
+                                validEntry = true;
+                            }else validEntry = false;
+                        }        
+                        while(validEntry == false);*/
+                        FindMatch(animalPhysicalDescription, "cat", 4);
+                        /*for (int i=0; i<maxPets; i++)
+                        {
+                            if (ourAnimals[i,4].Contains(animalPhysicalDescription.ToLower()) && ourAnimals[i,1].Contains("cat"))
+                            {   
+                                found = true; 
+                                for(int j=0; j<6; j++)
                                 {
-                                    animalNickname = readResult;
-                                    validEntry = true;
-                                }else validEntry = false;
-                            }        
-                            while(validEntry == false);
-
-                            for (int i=0; i<maxPets; i++)
+                                    Console.WriteLine(ourAnimals[i, j]);
+                                }
+                                Console.WriteLine("");
+                            }                  
+                        }
+                        if (found == false) Console.WriteLine("Physical description not found.");*/
+                        break;
+                    case "nickname":
+                        animalNickname = GetValidatedInput("Enter Nickname to find cat matches:", input => !string.IsNullOrEmpty(input));
+                        /*do{
+                            Console.WriteLine("Enter Nickname to find cat matches");
+                            readResult = Console.ReadLine();
+                            if (readResult != null && readResult!="")
                             {
-                                if (ourAnimals[i,3].Contains(animalNickname.ToLower()) && ourAnimals[i,1].Contains("cat"))
-                                {   
-                                    found = true; 
-                                    for(int j=0; j<6; j++)
-                                    {
-                                        Console.WriteLine(ourAnimals[i, j]);
-                                    }
-                                    Console.WriteLine("");
-                                }                  
-                            }
-                            if (found == false) Console.WriteLine("Nickname not found.");
-                            break;
-                        default: 
-                            validEntry = false;
-                            break;
-                    }        
-                    
-                }else validEntry = false;
-                if (validEntry == false) Console.WriteLine("Invalid Entry. Type one of the following options: ID, Age, Personality, Description, Nickname");
+                                animalNickname = readResult;
+                                validEntry = true;
+                            }else validEntry = false;
+                        }        
+                        while(validEntry == false);*/
+                        FindMatch(animalNickname, "cat", 3);
+                        /*for (int i=0; i<maxPets; i++)
+                        {
+                            if (ourAnimals[i,3].Contains(animalNickname) && ourAnimals[i,1].Contains("cat"))
+                            {   
+                                found = true; 
+                                for(int j=0; j<6; j++)
+                                {
+                                    Console.WriteLine(ourAnimals[i, j]);
+                                }
+                                Console.WriteLine("");
+                            }                  
+                        }
+                        if (found == false) Console.WriteLine("Nickname not found.");*/
+                        break;
+                    default: 
+                        Console.WriteLine("Characteristic not found.");
+                        break;
+                }        
+                
+            /*}else validEntry = false;
+            if (validEntry == false) Console.WriteLine("Invalid Entry. Type one of the following options: ID, Age, Personality, Description, Nickname");
             
             }
-            while(validEntry ==false);
+            while(validEntry ==false);*/
             break;
         case "8":
-            Console.WriteLine("Enter the specified characteristic you want to look for to find dog matches: ID, Age, Personality, Description, Nickname");
-            do
-            {
-                readResult = Console.ReadLine();
-
-                if (readResult != null && readResult!="")
+            searchValue = GetValidatedInput("Enter the specified characteristic you want to look for to find dog matches: ID, Age, Personality, Description, Nickname", input => !string.IsNullOrEmpty(input));
+                
+                switch (searchValue)
                 {
-                    searchValue = readResult;
-                    switch (searchValue.ToLower())
-                    {
-                        case "id":
-                            do
+                    case "id":
+                        animalID = GetValidatedInput($"Enter an ID # to view dog information:", input => !string.IsNullOrEmpty(input) && input.Length==2);
+                        /*do
+                        {
+                            Console.WriteLine("Enter an ID # to view dog information:");
+                            readResult = Console.ReadLine();
+                            if (readResult != null && readResult != "" && readResult.Length==2)
                             {
-                                Console.WriteLine("Enter an ID # to view dog information:");
-                                readResult = Console.ReadLine();
-                                if (readResult != null && readResult != "" && readResult.Length==2)
-                                {
-                                    animalID = readResult;
-                                    validEntry = true;
-                                }else 
-                                {
-                                    Console.WriteLine("ID not valid. Try Again.");
-                                    validEntry = false;
-                                }    
+                                animalID = readResult;
+                                validEntry = true;
+                            }else 
+                            {
+                                Console.WriteLine("ID not valid. Try Again.");
+                                validEntry = false;
                             }    
-                            while(validEntry == false);
+                        }    
+                        while(validEntry == false);*/
 
-                            for (int i=0; i<maxPets; i++)
-                            {
-                                if (ourAnimals[i,0].Contains(animalID) && ourAnimals[i,1].Contains("dog"))
-                                {   
-                                    found = true; 
-                                    for(int j=0; j<6; j++)
-                                    {
-                                        Console.WriteLine(ourAnimals[i, j]);
-                                    }
-                                    Console.WriteLine("");
-                                }                  
-                            }
-                            if (found == false) Console.WriteLine("ID not found."); 
-
-                            break;
-                        case "age":
-                            do{
-                                Console.WriteLine("Enter a valid age to view matching dogs information:");
-                                readResult = Console.ReadLine();
-                                if (readResult != null)
+                        for (int i=0; i<maxPets; i++)
+                        {
+                            if (ourAnimals[i,0].Contains(animalID) && ourAnimals[i,1].Contains("dog"))
+                            {   
+                                found = true; 
+                                for(int j=0; j<6; j++)
                                 {
-                                    animalAge = readResult;
-                                    validEntry = int.TryParse(animalAge, out petAge);
-                                }else validEntry = false;
-                            }while(validEntry == false);
+                                    Console.WriteLine(ourAnimals[i, j]);
+                                }
+                                Console.WriteLine("");
+                            }                  
+                        }
+                        if (found == false) Console.WriteLine("ID not found."); 
 
-                            for (int i=0; i<maxPets; i++)
+                        break;
+                    case "age":
+                        animalAge = GetValidatedInput("Enter a valid age to view matching dogs information:", input => !string.IsNullOrEmpty(input) && int.TryParse(input, out petAge));
+                        /*do{
+                            Console.WriteLine("Enter a valid age to view matching dogs information:");
+                            readResult = Console.ReadLine();
+                            if (readResult != null)
                             {
-                                if (ourAnimals[i,2].Contains(animalAge) && ourAnimals[i,1].Contains("dog"))
-                                {   
-                                    found = true; 
-                                    for(int j=0; j<6; j++)
-                                    {
-                                        Console.WriteLine(ourAnimals[i, j]);
-                                    }
-                                    Console.WriteLine("");
-                                }                  
-                            }
-                            if (found == false) Console.WriteLine("Age not found.");
-                            break;
-                        case "personality":
-                            do{
-                                Console.WriteLine("Enter personality description to find dog matches:");
-                                readResult = Console.ReadLine();
-                                if (readResult != null && readResult!="")
+                                animalAge = readResult;
+                                validEntry = int.TryParse(animalAge, out petAge);
+                            }else validEntry = false;
+                        }while(validEntry == false);*/
+
+                        for (int i=0; i<maxPets; i++)
+                        {
+                            if (ourAnimals[i,2].Contains(animalAge) && ourAnimals[i,1].Contains("dog"))
+                            {   
+                                found = true; 
+                                for(int j=0; j<6; j++)
                                 {
-                                    animalPersonalityDescription = readResult;
-                                    validEntry = true;
-                                }else validEntry = false;
-                            }        
-                            while(validEntry == false);
-
-                            for (int i=0; i<maxPets; i++)
+                                    Console.WriteLine(ourAnimals[i, j]);
+                                }
+                                Console.WriteLine("");
+                            }                  
+                        }
+                        if (found == false) Console.WriteLine("Age not found.");
+                        break;
+                    case "personality":
+                        animalPersonalityDescription = GetValidatedInput("Enter personality description to find dog matches:", input => !string.IsNullOrEmpty(input));
+                        /*do{
+                            Console.WriteLine("Enter personality description to find dog matches:");
+                            readResult = Console.ReadLine();
+                            if (readResult != null && readResult!="")
                             {
-                                if (ourAnimals[i,5].Contains(animalPersonalityDescription.ToLower()) && ourAnimals[i,1].Contains("dog"))
-                                {   
-                                    found = true; 
-                                    for(int j=0; j<6; j++)
-                                    {
-                                        Console.WriteLine(ourAnimals[i, j]);
-                                    }
-                                    Console.WriteLine("");
-                                }                  
-                            }
-                            if (found == false) Console.WriteLine("Personality description not found.");
-                            break;
-                        case "description":
-                            do{
-                                Console.WriteLine("Enter physical description to find dog matches:");
-                                readResult = Console.ReadLine();
-                                if (readResult != null && readResult!="")
+                                animalPersonalityDescription = readResult;
+                                validEntry = true;
+                            }else validEntry = false;
+                        }        
+                        while(validEntry == false);*/
+
+                        for (int i=0; i<maxPets; i++)
+                        {
+                            if (ourAnimals[i,5].Contains(animalPersonalityDescription.ToLower()) && ourAnimals[i,1].Contains("dog"))
+                            {   
+                                found = true; 
+                                for(int j=0; j<6; j++)
                                 {
-                                    animalPhysicalDescription = readResult;
-                                    validEntry = true;
-                                }else validEntry = false;
-                            }        
-                            while(validEntry == false);
+                                    Console.WriteLine(ourAnimals[i, j]);
+                                }
+                                Console.WriteLine("");
+                            }                  
+                        }
+                        if (found == false) Console.WriteLine("Personality description not found.");
+                        break;
+                    case "description":
 
-                            for (int i=0; i<maxPets; i++)
+                        animalPhysicalDescription = GetValidatedInput("Enter physical description to find dog matches:", input => !string.IsNullOrEmpty(input));
+                        /*do{
+                            Console.WriteLine("Enter physical description to find dog matches:");
+                            readResult = Console.ReadLine();
+                            if (readResult != null && readResult!="")
                             {
-                                if (ourAnimals[i,4].Contains(animalPhysicalDescription.ToLower()) && ourAnimals[i,1].Contains("dog"))
-                                {   
-                                    found = true; 
-                                    for(int j=0; j<6; j++)
-                                    {
-                                        Console.WriteLine(ourAnimals[i, j]);
-                                    }
-                                    Console.WriteLine("");
-                                }                  
-                            }
-                            if (found == false) Console.WriteLine("Physical description not found.");
-                            break;
-                        case "nickname":
-                            do{
-                                Console.WriteLine("Enter Nickname to find dog matches");
-                                readResult = Console.ReadLine();
-                                if (readResult != null && readResult!="")
+                                animalPhysicalDescription = readResult;
+                                validEntry = true;
+                            }else validEntry = false;
+                        }        
+                        while(validEntry == false);*/
+
+                        for (int i=0; i<maxPets; i++)
+                        {
+                            if (ourAnimals[i,4].Contains(animalPhysicalDescription.ToLower()) && ourAnimals[i,1].Contains("dog"))
+                            {   
+                                found = true; 
+                                for(int j=0; j<6; j++)
                                 {
-                                    animalNickname = readResult;
-                                    validEntry = true;
-                                }else validEntry = false;
-                            }        
-                            while(validEntry == false);
-
-                            for (int i=0; i<maxPets; i++)
+                                    Console.WriteLine(ourAnimals[i, j]);
+                                }
+                                Console.WriteLine("");
+                            }                  
+                        }
+                        if (found == false) Console.WriteLine("Physical description not found.");
+                        break;
+                    case "nickname":
+                        animalNickname = GetValidatedInput("Enter Nickname to find dog matches:", input => !string.IsNullOrEmpty(input));
+                        /*do{
+                            Console.WriteLine("Enter Nickname to find dog matches");
+                            readResult = Console.ReadLine();
+                            if (readResult != null && readResult!="")
                             {
-                                if (ourAnimals[i,3].Contains(animalNickname.ToLower()) && ourAnimals[i,1].Contains("dog"))
-                                {   
-                                    found = true; 
-                                    for(int j=0; j<6; j++)
-                                    {
-                                        Console.WriteLine(ourAnimals[i, j]);
-                                    }
-                                    Console.WriteLine("");
-                                }                  
-                            }
-                            if (found == false) Console.WriteLine("Nickname not found.");
-                            break;
-                        default: 
-                            validEntry = false;
-                            break;
-                    }        
-                    
-                }else validEntry = false;
-                if (validEntry == false) Console.WriteLine("Invalid Entry. Type one of the following options: ID, Age, Personality, Description, Nickname");
+                                animalNickname = readResult;
+                                validEntry = true;
+                            }else validEntry = false;
+                        }        
+                        while(validEntry == false);*/
+
+                        for (int i=0; i<maxPets; i++)
+                        {
+                            if (ourAnimals[i,3].Contains(animalNickname) && ourAnimals[i,1].Contains("dog"))
+                            {   
+                                found = true; 
+                                for(int j=0; j<6; j++)
+                                {
+                                    Console.WriteLine(ourAnimals[i, j]);
+                                }
+                                Console.WriteLine("");
+                            }                  
+                        }
+                        if (found == false) Console.WriteLine("Nickname not found.");
+                        break;
+                    default: 
+                        break;
+                }        
+                
+            /*}else validEntry = false;
+            if (validEntry == false) Console.WriteLine("Invalid Entry. Type one of the following options: ID, Age, Personality, Description, Nickname");
             
             }
-            while(validEntry ==false);
+            while(validEntry ==false);*/
             break;
     }
     // pause code execution
