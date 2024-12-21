@@ -650,8 +650,9 @@ do
                             }    
                         }    
                         while(validEntry == false);*/
+                        FindMatch(animalID, "dog", 0);
 
-                        for (int i=0; i<maxPets; i++)
+                        /*for (int i=0; i<maxPets; i++)
                         {
                             if (ourAnimals[i,0].Contains(animalID) && ourAnimals[i,1].Contains("dog"))
                             {   
@@ -663,7 +664,7 @@ do
                                 Console.WriteLine("");
                             }                  
                         }
-                        if (found == false) Console.WriteLine("ID not found."); 
+                        if (found == false) Console.WriteLine("ID not found.");*/ 
 
                         break;
                     case "age":
@@ -678,7 +679,7 @@ do
                             }else validEntry = false;
                         }while(validEntry == false);*/
 
-                        for (int i=0; i<maxPets; i++)
+                        /*for (int i=0; i<maxPets; i++)
                         {
                             if (ourAnimals[i,2].Contains(animalAge) && ourAnimals[i,1].Contains("dog"))
                             {   
@@ -689,8 +690,9 @@ do
                                 }
                                 Console.WriteLine("");
                             }                  
-                        }
-                        if (found == false) Console.WriteLine("Age not found.");
+                        
+                        if (found == false) Console.WriteLine("Age not found.");*/
+                        FindMatch(animalAge, "dog", 2);
                         break;
                     case "personality":
                         animalPersonalityDescription = GetValidatedInput("Enter personality description to find dog matches:", input => !string.IsNullOrEmpty(input));
@@ -705,7 +707,9 @@ do
                         }        
                         while(validEntry == false);*/
 
-                        for (int i=0; i<maxPets; i++)
+                        FindMatch(animalPersonalityDescription, "dog", 5);
+
+                        /*for (int i=0; i<maxPets; i++)
                         {
                             if (ourAnimals[i,5].Contains(animalPersonalityDescription.ToLower()) && ourAnimals[i,1].Contains("dog"))
                             {   
@@ -717,7 +721,7 @@ do
                                 Console.WriteLine("");
                             }                  
                         }
-                        if (found == false) Console.WriteLine("Personality description not found.");
+                        if (found == false) Console.WriteLine("Personality description not found.");*/
                         break;
                     case "description":
 
@@ -732,8 +736,8 @@ do
                             }else validEntry = false;
                         }        
                         while(validEntry == false);*/
-
-                        for (int i=0; i<maxPets; i++)
+                        FindMatch(animalPhysicalDescription, "dog", 4);
+                        /*for (int i=0; i<maxPets; i++)
                         {
                             if (ourAnimals[i,4].Contains(animalPhysicalDescription.ToLower()) && ourAnimals[i,1].Contains("dog"))
                             {   
@@ -745,7 +749,7 @@ do
                                 Console.WriteLine("");
                             }                  
                         }
-                        if (found == false) Console.WriteLine("Physical description not found.");
+                        if (found == false) Console.WriteLine("Physical description not found.");*/
                         break;
                     case "nickname":
                         animalNickname = GetValidatedInput("Enter Nickname to find dog matches:", input => !string.IsNullOrEmpty(input));
@@ -759,8 +763,8 @@ do
                             }else validEntry = false;
                         }        
                         while(validEntry == false);*/
-
-                        for (int i=0; i<maxPets; i++)
+                        FindMatch(animalNickname, "dog", 3);
+                        /*for (int i=0; i<maxPets; i++)
                         {
                             if (ourAnimals[i,3].Contains(animalNickname) && ourAnimals[i,1].Contains("dog"))
                             {   
@@ -772,9 +776,10 @@ do
                                 Console.WriteLine("");
                             }                  
                         }
-                        if (found == false) Console.WriteLine("Nickname not found.");
+                        if (found == false) Console.WriteLine("Nickname not found.");*/
                         break;
                     default: 
+                        Console.WriteLine("Characteristic not found.");
                         break;
                 }        
                 
