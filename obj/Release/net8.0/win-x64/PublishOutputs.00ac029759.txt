@@ -1,5 +1,0 @@
-C:\Users\linda\Downloads\Projects\PetsAppProject\bin\Release\net8.0\win-x64\publish\Starter.exe
-C:\Users\linda\Downloads\Projects\PetsAppProject\bin\Release\net8.0\win-x64\publish\Starter.dll
-C:\Users\linda\Downloads\Projects\PetsAppProject\bin\Release\net8.0\win-x64\publish\Starter.deps.json
-C:\Users\linda\Downloads\Projects\PetsAppProject\bin\Release\net8.0\win-x64\publish\Starter.runtimeconfig.json
-C:\Users\linda\Downloads\Projects\PetsAppProject\bin\Release\net8.0\win-x64\publish\Starter.pdb
