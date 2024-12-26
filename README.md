@@ -37,3 +37,23 @@ When you open the app, you’ll be greeted with the main menu where you can choo
 ## Let’s Get Started! 🚀
 
 To dive into the app, just follow the menu instructions. Don’t worry about making mistakes—everything is user-friendly, and the app will guide you through each step.
+
+## How to Run This Pets App in GitHub Codespaces 🚀
+
+### Step 1: Open in Codespaces
+
+1. Click the **"Code"** button, then select **"Open with Codespaces"**.
+2. If it's your first time using Codespaces, GitHub will set up the environment automatically (just give it a moment).
+
+### Step 2: Build the Project
+
+1. Once inside Codespaces, open the **Terminal** (click `Terminal` in the top menu or press `Ctrl + ~`).
+2. In the terminal, type:
+   ```bash
+   dotnet build
+
+### Step 3: Run the Project
+1. After the build completes, run the project with:
+```bash
+   dotnet run
+
